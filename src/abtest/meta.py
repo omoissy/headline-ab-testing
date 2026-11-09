@@ -8,7 +8,7 @@ import numpy as np
 def log_odds_ratio(c_t, n_t, c_c, n_c):
     """Log odds ratio of treatment vs control and its standard error.
     A 0.5 continuity correction is applied only where a cell is zero."""
-    c_t, n_t, c_c, n_c = (np.asarray(x, float) for x in (c_t, n_t, c_c, n_c))
+    c_t, n_t, c_c, n_c = np.broadcast_arrays(*(np.asarray(x, float) for x in (c_t, n_t, c_c, n_c)))
     cells = np.stack([c_t, n_t - c_t, c_c, n_c - c_c])
     cells = np.where((cells == 0).any(axis=0), cells + 0.5, cells)
     a, b, c, d = cells

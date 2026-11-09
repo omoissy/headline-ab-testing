@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Headline A/B Testing Lab</title>
+<meta name="description" content="Explore 1,825 real headline A/B tests, analyze your own test with frequentist and Bayesian methods, plan sample sizes and see why peeking creates false winners.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%232a78d6'/%3E%3Cpath d='M8 22l5-6 4 3 7-9' stroke='white' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<style>
+:root {
+  color-scheme: light;
+  --page: #f9f9f7; --surface: #fcfcfb; --raised: #ffffff;
+  --ink: #0b0b0b; --ink-2: #52514e; --muted: #898781;
+  --grid: #e1e0d9; --axis: #c3c2b7; --border: #e1e0d9;
+  --s1: #2a78d6; --s2: #eb6834; --s3: #1baf7a; --s4: #eda100;
+  --context: #c3c2b7; --good: #006300; --good-bg: #e6f2e6; --neutral-bg: #f0efec;
+  --focus: #2a78d6;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --page: #0d0d0d; --surface: #1a1a19; --raised: #222221;
+    --ink: #f0efec; --ink-2: #c3c2b7; --muted: #898781;
+    --grid: #2c2c2a; --axis: #383835; --border: #2c2c2a;
+    --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500;
+    --context: #5a5955; --good: #0ca30c; --good-bg: #13260f; --neutral-bg: #2a2a28;
+    --focus: #3987e5;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --page: #0d0d0d; --surface: #1a1a19; --raised: #222221;
+  --ink: #f0efec; --ink-2: #c3c2b7; --muted: #898781;
+  --grid: #2c2c2a; --axis: #383835; --border: #2c2c2a;
+  --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500;
+  --context: #5a5955; --good: #0ca30c; --good-bg: #13260f; --neutral-bg: #2a2a28;
+  --focus: #3987e5;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--page); color: var(--ink); font: 15px/1.55 ui-sans-serif, system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; }
+a { color: var(--s1); }
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 16px; }
+header.hero { padding: 48px 0 24px; }
+.eyebrow { color: var(--ink-2); font-size: 13px; letter-spacing: .04em; text-transform: uppercase; margin: 0 0 8px; }
+h1 { font-size: clamp(28px, 4.2vw, 40px); line-height: 1.15; margin: 0 0 12px; letter-spacing: -.01em; }
+.lede { color: var(--ink-2); font-size: 17px; max-width: 760px; margin: 0 0 20px; }
+.links { display: flex; flex-wrap: wrap; gap: 10px; }
+.btn { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--border); background: var(--raised); color: var(--ink); padding: 8px 14px; border-radius: 8px; font: inherit; font-size: 14px; cursor: pointer; text-decoration: none; }
+.btn.primary { background: var(--s1); border-color: var(--s1); color: #fff; }
+.btn:hover { border-color: var(--axis); }
+.btn:focus-visible, input:focus-visible, select:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin: 28px 0 8px; }
+.kpi { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 16px; }
+.kpi .v { font-size: 26px; font-weight: 650; font-variant-numeric: tabular-nums; letter-spacing: -.01em; }
+.kpi .l { color: var(--ink-2); font-size: 13px; }
+nav.tabs { position: sticky; top: 0; z-index: 5; background: var(--page); border-bottom: 1px solid var(--border); margin-top: 24px; }
+nav.tabs .wrap { display: flex; gap: 4px; overflow-x: auto; }
+nav.tabs a { padding: 12px 12px; color: var(--ink-2); text-decoration: none; white-space: nowrap; font-size: 14px; border-bottom: 2px solid transparent; }
+nav.tabs a:hover { color: var(--ink); }
+section { padding: 40px 0 8px; }
+h2 { font-size: 22px; margin: 0 0 4px; }
+.sub { color: var(--ink-2); margin: 0 0 18px; max-width: 780px; }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 18px; }
+.controls { display: flex; flex-wrap: wrap; gap: 10px; align-items: end; margin-bottom: 14px; }
+label.f { display: flex; flex-direction: column; gap: 4px; font-size: 13px; color: var(--ink-2); }
+input, select { font: inherit; font-size: 14px; color: var(--ink); background: var(--raised); border: 1px solid var(--border); border-radius: 8px; padding: 7px 10px; min-width: 0; }
+input[type=number] { width: 120px; }
+input.search { width: 280px; max-width: 100%; }
+select.tests { width: 100%; max-width: 640px; }
+.check { display: flex; align-items: center; gap: 6px; font-size: 14px; color: var(--ink-2); }
+.verdict { display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: 999px; font-weight: 600; font-size: 14px; margin: 4px 0 12px; }
+.verdict.ship { background: var(--good-bg); color: var(--good); }
+.verdict.keep { background: var(--neutral-bg); color: var(--ink-2); }
+.meta { color: var(--ink-2); font-size: 13px; margin: 0 0 10px; }
+.chart { width: 100%; position: relative; }
+.chart svg { display: block; width: 100%; height: auto; overflow: visible; }
+.chart text { font-family: inherit; }
+.legend { display: flex; flex-wrap: wrap; gap: 14px; font-size: 13px; color: var(--ink-2); margin: 4px 0 8px; }
+.legend i { display: inline-block; width: 14px; height: 3px; border-radius: 2px; vertical-align: middle; margin-right: 6px; }
+.tablewrap { overflow-x: auto; margin-top: 12px; }
+table { border-collapse: collapse; width: 100%; font-size: 13px; font-variant-numeric: tabular-nums; }
+th, td { text-align: right; padding: 7px 8px; border-bottom: 1px solid var(--border); white-space: nowrap; }
+th { color: var(--ink-2); font-weight: 600; }
+td.hl, th.hl { text-align: left; white-space: normal; min-width: 260px; }
+tr.ctl td { color: var(--ink-2); }
+.grid2 { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; }
+.result { font-size: 22px; font-weight: 650; margin: 6px 0 2px; font-variant-numeric: tabular-nums; }
+.armrow { display: flex; gap: 8px; align-items: end; margin-bottom: 8px; flex-wrap: wrap; }
+.armrow input[type=text] { width: 64px; }
+.note { color: var(--muted); font-size: 12.5px; margin-top: 10px; }
+#tooltip { position: fixed; pointer-events: none; z-index: 20; background: var(--raised); color: var(--ink); border: 1px solid var(--border); border-radius: 8px; padding: 8px 10px; font-size: 12.5px; box-shadow: 0 4px 16px rgba(0,0,0,.12); max-width: 320px; display: none; }
+#tooltip b { font-weight: 600; }
+footer { color: var(--ink-2); font-size: 13px; padding: 40px 0 56px; border-top: 1px solid var(--border); margin-top: 48px; }
+footer code { font-size: 12px; }
+@media (max-width: 760px) {
+  .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .kpi .v { font-size: 20px; }
+  .grid2 { grid-template-columns: 1fr; }
+  header.hero { padding-top: 32px; }
+}
+</style>
+</head>
+<body>
+<header class="hero wrap">
+  <p class="eyebrow">Experimentation · Frequentist + Bayesian · Real data</p>
+  <h1>Headline A/B Testing Lab</h1>
+  <p class="lede">An end-to-end analysis of <strong>1,825 real headline experiments</strong> from the Upworthy Research Archive. It checks the randomization, calibrates the p-values with A/A tests, corrects for multiple comparisons, and shrinks winning lifts toward realistic sizes. Every number on this page is computed by the project's tested Python library.</p>
+  <div class="links">
+    <a class="btn primary" href="https://github.com/omoissy/headline-ab-testing">View code on GitHub</a>
+    <a class="btn" href="https://github.com/omoissy/headline-ab-testing/blob/main/notebooks/02_portfolio_meta_analysis.ipynb">Read the analysis</a>
+    <a class="btn" href="#analyze">Analyze your own test</a>
+  </div>
+  <div class="kpis" id="kpis" aria-live="polite"></div>
+</header>
+
+<nav class="tabs" aria-label="Sections"><div class="wrap">
+  <a href="#explorer">Explore real tests</a><a href="#analyze">Analyze a test</a><a href="#plan">Plan a test</a><a href="#peeking">Peeking simulator</a><a href="#features">What makes headlines win</a>
+</div></nav>
+
+<main class="wrap">
+  <section id="explorer">
+    <h2>Explore 1,825 real experiments</h2>
+    <p class="sub">Every headline-only test outside the archive's broken-randomization window. Pick one to see each headline's CTR, its lift over the editor's first draft, and the verdict from the same rule used throughout the project.</p>
+    <div class="card">
+      <div class="controls">
+        <label class="f">Search headlines<input class="search" id="q" type="search" placeholder="e.g. mattress, doctors, Walmart"></label>
+        <label class="check"><input type="checkbox" id="shipOnly"> Only tests that ship a challenger</label>
+        <button class="btn" id="random">Random test</button>
+        <button class="btn" id="caseStudy">Case study test</button>
+      </div>
+      <label class="f"><span>Test (<span id="matchCount">0</span> matches; up to 400 listed, search to narrow)</span><select class="tests" id="testSelect"></select></label>
+      <div id="explorerOut" style="margin-top:14px"></div>
+    </div>
+  </section>
+
+  <section id="analyze">
+    <h2>Analyze your own A/B test</h2>
+    <p class="sub">Enter clicks and impressions per arm, with the control first. You get Wilson intervals, z-tests with Holm correction, P(best) and expected loss, a sample-ratio check, and a ship/keep decision. The math runs in your browser and is parity-tested against the Python package.</p>
+    <div class="card">
+      <div id="armRows"></div>
+      <div class="controls">
+        <button class="btn" id="addArm">+ Add arm</button>
+        <label class="f">Noise model<select id="phi"><option value="1">Binomial (φ = 1)</option><option value="cal" selected>A/A-calibrated</option></select></label>
+        <button class="btn primary" id="runAnalyze">Analyze</button>
+      </div>
+      <div id="analyzeOut"></div>
+    </div>
+  </section>
+
+  <section id="plan">
+    <h2>Plan a test that can actually find something</h2>
+    <p class="sub">Most real tests here could only detect lifts of roughly +77% or more. Use this planner to size a test for the effect you actually expect.</p>
+    <div class="grid2">
+      <div class="card">
+        <div class="controls">
+          <label class="f">Baseline CTR (%)<input id="pBase" type="number" step="0.01" min="0.01" value="1.04"></label>
+          <label class="f">Target lift (%)<input id="pLift" type="number" step="1" min="1" value="10"></label>
+          <label class="f">Arms incl. control<input id="pArms" type="number" min="2" max="20" value="5"></label>
+          <label class="f">Power (%)<input id="pPower" type="number" min="50" max="99" value="80"></label>
+          <label class="check"><input type="checkbox" id="pPhi" checked> Use A/A calibration</label>
+        </div>
+        <div class="result" id="planResult"></div>
+        <div class="meta" id="planMeta"></div>
+      </div>
+      <div class="card"><div class="chart" id="planChart"></div></div>
+    </div>
+  </section>
+
+  <section id="peeking">
+    <h2>Peeking simulator</h2>
+    <p class="sub">Simulate A/A tests, where both arms are identical, and "check the dashboard" after every batch of impressions. Stopping at the first significant result turns 5% false winners into far more, and a Bayesian "95% chance to win" stopping rule is no safer.</p>
+    <div class="card">
+      <div class="controls">
+        <label class="f">Baseline CTR (%)<input id="sBase" type="number" step="0.01" min="0.01" value="1.04"></label>
+        <label class="f">Impressions per look (per arm)<input id="sPer" type="number" min="50" max="2000" step="50" value="200"></label>
+        <label class="f">Looks<input id="sLooks" type="number" min="1" max="100" value="32"></label>
+        <label class="f">Simulated tests<input id="sSims" type="number" min="200" max="5000" step="100" value="2000"></label>
+        <button class="btn primary" id="runSim">Run simulation</button>
+      </div>
+      <div class="legend" id="simLegend"></div>
+      <div class="chart" id="simChart"></div>
+      <p class="note" id="simNote"></p>
+    </div>
+  </section>
+
+  <section id="features">
+    <h2>What makes a headline win?</h2>
+    <p class="sub">The features were explored on 1,825 tests, pre-registered, and then confirmed on 8,794 tests the analysis had not seen. Effects are compared within each test, holding the story, image and audience fixed.</p>
+    <div class="card"><div class="chart" id="featChart"></div><p class="note">Confirmatory-sample estimates with 95% cluster-robust intervals. A filled dot means the feature was pre-registered and replicated. A hollow dot means it was not pre-registered.</p></div>
+  </section>
+</main>
+
+<footer class="wrap" id="footer"></footer>
+<div id="tooltip" role="tooltip"></div>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

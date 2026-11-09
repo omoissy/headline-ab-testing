@@ -1,16 +1,12 @@
-import sys
-from pathlib import Path
-
 import numpy as np
 import pandas as pd
 import pytest
 from statsmodels.stats.multitest import multipletests
 from statsmodels.stats.proportion import proportions_ztest
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
-from abtest import bayesian as bayes  # noqa: E402
-from abtest import frequentist as fq  # noqa: E402
-from abtest import meta, power, simulate  # noqa: E402
+from abtest import bayesian as bayes
+from abtest import frequentist as fq
+from abtest import meta, power, simulate
 
 
 def test_ztest_matches_statsmodels():

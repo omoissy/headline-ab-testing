@@ -7,3 +7,4 @@ jupyter==1.1.1
 nbconvert==7.17.2
 ipykernel==7.4.0
 pytest==9.2.0
+ruff==0.17.4

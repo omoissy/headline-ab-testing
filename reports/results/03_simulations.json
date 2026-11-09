@@ -57,5 +57,26 @@
       "total, 5 arms": 144755,
       "x typical test": 9.046962325385548
     }
-  ]
+  ],
+  "provenance": {
+    "generated_utc": "2026-11-09T21:06:06+00:00",
+    "git_commit": "3a02ced76ebb40da629f789d117a1461d891fb9d",
+    "git_branch": "feature/recruiter-ready-polish",
+    "git_dirty": true,
+    "python": "3.13.11",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "packages": {
+      "numpy": "2.5.4",
+      "pandas": "3.1.1",
+      "scipy": "1.18.1",
+      "statsmodels": "0.15.0",
+      "matplotlib": "3.11.2"
+    },
+    "inputs": {},
+    "seeds": {
+      "peeking": 1,
+      "multiple_arms": 2,
+      "winners_curse": 11
+    }
+  }
 }

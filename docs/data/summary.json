@@ -1,0 +1,112 @@
+{
+  "decision_rule": "ship the best challenger only if it beats control after Holm correction AND P(best) >= 95% AND expected loss < 0.01 percentage points",
+  "phi": 1.6692774860885518,
+  "n_tests": 1825,
+  "n_ship": 75,
+  "winners_naive": 690,
+  "winners_cal_holm": 230,
+  "winners_obs_median": 1.4870824738289805,
+  "winners_eb_median": 0.49147768564550987,
+  "fp_aa": 0.12779156327543426,
+  "srm_fail_inside": 0.7,
+  "srm_fail_outside": 0.004708344232278315,
+  "median_mde": 0.773227733876191,
+  "median_ctr_c": 0.010382897529898849,
+  "median_n_arm": 3222.75,
+  "peek_fpr": {
+    "z-test, stop when p < 0.05": 0.2748,
+    "Bayesian, stop when P(B>A) > 95%": 0.41755,
+    "Pocock boundary (corrected)": 0.0391
+  },
+  "case_lift": 1.2253591708250526,
+  "features": [
+    {
+      "feature": "number",
+      "odds_ratio": 1.0626341028164028,
+      "or_lo": 1.0473785656064671,
+      "or_hi": 1.0781118437482842,
+      "replicated": true,
+      "preregistered": true
+    },
+    {
+      "feature": "question",
+      "odds_ratio": 0.917253842683383,
+      "or_lo": 0.9056386161065252,
+      "or_hi": 0.9290180398165226,
+      "replicated": true,
+      "preregistered": true
+    },
+    {
+      "feature": "exclamation",
+      "odds_ratio": 0.9400303041999314,
+      "or_lo": 0.9103742776262176,
+      "or_hi": 0.9706523948790965,
+      "replicated": true,
+      "preregistered": true
+    },
+    {
+      "feature": "you / your",
+      "odds_ratio": 1.0076929725750539,
+      "or_lo": 0.9962003054613037,
+      "or_hi": 1.0193182248693782,
+      "replicated": false,
+      "preregistered": false
+    },
+    {
+      "feature": "I / me / my",
+      "odds_ratio": 1.0355619939571692,
+      "or_lo": 1.0194588993146831,
+      "or_hi": 1.051919448689345,
+      "replicated": false,
+      "preregistered": false
+    },
+    {
+      "feature": "this / these / here's",
+      "odds_ratio": 1.0515164740626395,
+      "or_lo": 1.0401969006906058,
+      "or_hi": 1.062959228672033,
+      "replicated": true,
+      "preregistered": true
+    },
+    {
+      "feature": "negative word",
+      "odds_ratio": 1.0665355731799537,
+      "or_lo": 1.0497210784428004,
+      "or_hi": 1.0836194034949782,
+      "replicated": true,
+      "preregistered": true
+    },
+    {
+      "feature": "length (+10 words)",
+      "odds_ratio": 1.0978268294756142,
+      "or_lo": 1.07952501806046,
+      "or_hi": 1.1164389220750595,
+      "replicated": true,
+      "preregistered": true
+    }
+  ],
+  "provenance": {
+    "generated_utc": "2026-11-09T21:08:43+00:00",
+    "git_commit": "ec98e15e996eb268ff9ef6fceae6f7d6617b070a",
+    "git_branch": "feature/recruiter-ready-polish",
+    "git_dirty": false,
+    "python": "3.13.11",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "packages": {
+      "numpy": "2.5.4",
+      "pandas": "3.1.1",
+      "scipy": "1.18.1",
+      "statsmodels": "0.15.0",
+      "matplotlib": "3.11.2"
+    },
+    "inputs": {
+      "exploratory": {
+        "file": "data/raw/upworthy-exploratory.csv",
+        "sha256": "8368313b060f4015a0c6fb34e6d788163cee29554144aba9390b14922eb9d8ce"
+      }
+    },
+    "seeds": {
+      "posterior_draws": 0
+    }
+  }
+}

@@ -7,6 +7,7 @@ were not part of the tested stimulus according to the archive documentation.
 """
 from __future__ import annotations
 
+import hashlib
 from pathlib import Path
 
 import numpy as np
@@ -20,6 +21,13 @@ OSF_URLS = {
     "exploratory": "https://osf.io/download/3vqmp/",
     "confirmatory": "https://osf.io/download/vy8mj/",
 }
+# SHA-256 of the files this analysis was run on (OSF versions dated 03.12.2020).
+# A mismatch means the upstream data changed and every result must be re-checked.
+SHA256 = {
+    "exploratory": "8368313b060f4015a0c6fb34e6d788163cee29554144aba9390b14922eb9d8ce",
+    "confirmatory": "b2a88288c88f2b67d40413c9bdbebe79a1c0b5d9a9354180549f59f3bfff685f",
+}
+EXPECTED_ROWS = {"exploratory": 22_666, "confirmatory": 105_551}
 
 # The archive maintainers reported systematic randomization problems for tests
 # run in this window (June 2024 update) and discourage using them.
@@ -27,12 +35,35 @@ PROBLEM_START = pd.Timestamp("2013-06-25")
 PROBLEM_END = pd.Timestamp("2014-01-11")  # exclusive: covers Jan 10, 2014
 
 
-def load_packages(sample: str = "exploratory") -> pd.DataFrame:
-    """Load one archive sample and add derived columns."""
-    path = RAW_DIR / f"upworthy-{sample}.csv"
+def sha256(path: Path) -> str:
+    h = hashlib.sha256()
+    with open(path, "rb") as f:
+        for chunk in iter(lambda: f.read(1 << 20), b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+
+def raw_path(sample: str) -> Path:
+    if sample not in OSF_URLS:
+        raise ValueError(f"unknown sample {sample!r}; expected one of {sorted(OSF_URLS)}")
+    return RAW_DIR / f"upworthy-{sample}.csv"
+
+
+def load_packages(sample: str = "exploratory", verify: bool = True) -> pd.DataFrame:
+    """Load one archive sample and add derived columns.
+
+    With ``verify`` the file's checksum and row count must match the versions
+    this analysis was built on; anything else raises rather than silently
+    producing different numbers.
+    """
+    path = raw_path(sample)
     if not path.exists():
         raise FileNotFoundError(f"{path} not found - run `python scripts/download_data.py` first.")
+    if verify and (digest := sha256(path)) != SHA256[sample]:
+        raise ValueError(f"{path.name}: sha256 {digest} does not match the expected {SHA256[sample]}")
     df = pd.read_csv(path, index_col=0, low_memory=False)
+    if verify and len(df) != EXPECTED_ROWS[sample]:
+        raise ValueError(f"{path.name}: {len(df):,} rows, expected {EXPECTED_ROWS[sample]:,}")
     df["created_at"] = pd.to_datetime(df["created_at"], format="mixed")
     df = df.rename(columns={"clickability_test_id": "test_id"})
     df["eyecatcher_id"] = df["eyecatcher_id"].fillna("missing")

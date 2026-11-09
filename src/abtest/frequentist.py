@@ -25,21 +25,24 @@ def two_proportion_ztest(c_t, n_t, c_c, n_c):
     return z, 2 * stats.norm.sf(np.abs(z))
 
 
-def diff_ci(c_t, n_t, c_c, n_c, alpha: float = 0.05):
-    """Absolute CTR difference (treatment - control) with an unpooled Wald CI."""
+def diff_ci(c_t, n_t, c_c, n_c, alpha: float = 0.05, phi: float = 1.0):
+    """Absolute CTR difference (treatment - control) with an unpooled Wald CI.
+    ``phi`` > 1 widens the interval for extra-binomial variance (from A/A tests)."""
     p_t, p_c = c_t / n_t, c_c / n_c
-    se = np.sqrt(p_t * (1 - p_t) / n_t + p_c * (1 - p_c) / n_c)
+    se = np.sqrt(phi * (p_t * (1 - p_t) / n_t + p_c * (1 - p_c) / n_c))
     z = stats.norm.ppf(1 - alpha / 2)
     d = p_t - p_c
     return d, d - z * se, d + z * se
 
 
-def relative_lift_ci(c_t, n_t, c_c, n_c, alpha: float = 0.05):
-    """Relative lift p_t/p_c - 1 with a delta-method CI on the log risk ratio."""
-    log_rr = np.log((c_t / n_t) / (c_c / n_c))
-    se = np.sqrt(1 / c_t - 1 / n_t + 1 / c_c - 1 / n_c)
-    z = stats.norm.ppf(1 - alpha / 2)
-    return np.expm1(log_rr), np.expm1(log_rr - z * se), np.expm1(log_rr + z * se)
+def relative_lift_ci(c_t, n_t, c_c, n_c, alpha: float = 0.05, phi: float = 1.0):
+    """Relative lift p_t/p_c - 1 with a delta-method CI on the log risk ratio.
+    Undefined (nan/inf) when either arm has zero clicks."""
+    with np.errstate(divide="ignore", invalid="ignore"):
+        log_rr = np.log((c_t / n_t) / (c_c / n_c))
+        se = np.sqrt(phi * (1 / c_t - 1 / n_t + 1 / c_c - 1 / n_c))
+        z = stats.norm.ppf(1 - alpha / 2)
+        return np.expm1(log_rr), np.expm1(log_rr - z * se), np.expm1(log_rr + z * se)
 
 
 def srm_test(impressions, expected_share=None):
@@ -69,15 +72,21 @@ def adjust_pvalues(pvals, methods=tuple(CORRECTIONS), alpha: float = 0.05) -> pd
     return pd.DataFrame(out)
 
 
-def compare_to_control(arms: pd.DataFrame, alpha: float = 0.05, label_col: str = "label") -> pd.DataFrame:
-    """Every treatment vs the control row (``is_control``), with corrections."""
+def compare_to_control(arms: pd.DataFrame, alpha: float = 0.05, label_col: str = "label",
+                       phi: float = 1.0) -> pd.DataFrame:
+    """Every treatment vs the control row (``is_control``), with corrections.
+
+    ``phi`` is the variance inflation measured in A/A tests (1 = trust the
+    binomial model). z is divided by sqrt(phi) and intervals widened to match."""
     ctl = arms.loc[arms["is_control"]].iloc[0]
     trt = arms.loc[~arms["is_control"]].copy()
     c_c, n_c = ctl["clicks"], ctl["impressions"]
     c_t, n_t = trt["clicks"].to_numpy(), trt["impressions"].to_numpy()
-    trt["z"], trt["p_raw"] = two_proportion_ztest(c_t, n_t, c_c, n_c)
-    trt["diff"], trt["diff_lo"], trt["diff_hi"] = diff_ci(c_t, n_t, c_c, n_c, alpha)
-    trt["lift"], trt["lift_lo"], trt["lift_hi"] = relative_lift_ci(c_t, n_t, c_c, n_c, alpha)
+    z, _ = two_proportion_ztest(c_t, n_t, c_c, n_c)
+    trt["z"] = z / np.sqrt(phi)
+    trt["p_raw"] = 2 * stats.norm.sf(np.abs(trt["z"]))
+    trt["diff"], trt["diff_lo"], trt["diff_hi"] = diff_ci(c_t, n_t, c_c, n_c, alpha, phi)
+    trt["lift"], trt["lift_lo"], trt["lift_hi"] = relative_lift_ci(c_t, n_t, c_c, n_c, alpha, phi)
     adj = adjust_pvalues(trt["p_raw"].to_numpy(), alpha=alpha)
     for m in CORRECTIONS:
         trt[f"p_{m}"] = adj[f"p_{m}"].to_numpy()

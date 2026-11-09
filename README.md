@@ -1,6 +1,16 @@
 # Headline A/B Testing at Scale: Frequentist vs Bayesian on 1,825 Real Experiments
 
+[![CI](https://github.com/omoissy/headline-ab-testing/actions/workflows/ci.yml/badge.svg)](https://github.com/omoissy/headline-ab-testing/actions/workflows/ci.yml)
+[![Live demo](https://img.shields.io/badge/live%20demo-open-2a78d6)](https://omoissy.github.io/headline-ab-testing/)
+![Python](https://img.shields.io/badge/python-3.11%20%7C%203.13-blue)
+![Tests](https://img.shields.io/badge/tests-29%20passing-1baf7a)
+[![License: MIT](https://img.shields.io/badge/license-MIT-lightgrey)](LICENSE)
+
 **Which headline should we ship, how sure are we, and how big is the effect really?**
+
+> **[▶ Try the interactive lab](https://omoissy.github.io/headline-ab-testing/)**: explore all 1,825 real experiments, analyze your own A/B test (frequentist + Bayesian), size a test, and watch peeking create false winners in your browser.
+>
+> **Or from the terminal:** `pip install git+https://github.com/omoissy/headline-ab-testing` then `abtest analyze A=41/7165 B=92/7164`
 
 This project studies those questions on *real* experiments from the [Upworthy Research Archive](https://upworthy.natematias.com/), a public record of every headline A/B test Upworthy ran from 2013 to 2015. It starts with one experiment analysed end to end, then applies the same methods to more than 1,800 tests. That is where most textbook A/B testing advice gets tested against reality.
 
@@ -35,19 +45,25 @@ This project studies those questions on *real* experiments from the [Upworthy Re
 
 ```
 headline-ab-testing/
-├── src/abtest/            # reusable, unit-tested library
-│   ├── data.py            # loading, cleaning, test classification, arm tables
-│   ├── frequentist.py     # z-test, Wilson CI, lift CIs, SRM, omnibus χ², corrections
+├── src/abtest/            # reusable, tested library (pip install -e .)
+│   ├── data.py            # loading, checksum verification, test classification, arm tables
+│   ├── frequentist.py     # z-test, Wilson CI, lift CIs, SRM, omnibus χ², corrections, A/A calibration
 │   ├── bayesian.py        # Beta-Binomial posteriors, P(best), expected loss, priors
 │   ├── power.py           # sample size, power, minimum detectable effect
 │   ├── meta.py            # log odds ratios, random-effects pooling, EB shrinkage
 │   ├── simulate.py        # peeking, multiple arms, winner's curse simulations
+│   ├── readout.py         # one readout + decision rule shared by CLI and site
+│   ├── provenance.py      # git SHA, package versions, input hashes for every result
+│   ├── cli.py             # `abtest analyze | size | mde`
 │   └── plotting.py        # shared, colorblind-validated figure style
 ├── notebooks/             # executed analysis notebooks (01–04)
+├── docs/                  # interactive site (GitHub Pages): index.html, js/stats.js, js/app.js, data/
 ├── reports/figures/       # every figure in this README
-├── reports/results/       # JSON/CSV outputs behind every number quoted here
-├── scripts/download_data.py
-└── tests/test_stats.py    # 13 unit tests (checked against statsmodels and known answers)
+├── reports/results/       # JSON/CSV behind every number quoted here, each with provenance
+├── scripts/               # download_data.py (verified), build_site_data.py
+├── tests/                 # 29 tests: unit, data contracts, CLI, JS↔Python parity
+├── .github/               # CI workflow, issue + PR templates
+└── CLAUDE.md              # engineering rules for AI-assisted development on this repo
 ```
 
 ---
@@ -157,17 +173,57 @@ Eight features were tested on the exploratory sample with BH correction. The six
 
 ---
 
+## Use it on your own test
+
+```bash
+$ abtest analyze A=41/7165 B=92/7164 C=38/7068 D=24/7146 E=23/7217
+arm           impr.  clicks     CTR            95% CI               lift vs ctl         p  p (Holm)  P(best)  exp. loss
+A *           7,165      41   0.57%       0.42%–0.78%                   control         —         —    0.000    0.7120pp
+B             7,164      92   1.28%       1.05%–1.57%     +124.4% [+56%, +224%]  8.84e-06  3.54e-05    1.000    0.0000pp
+...
+Sample-ratio check (equal split): p = 0.804 -> PASS
+Decision: SHIP B (rule: ship the best challenger only if it beats control after Holm correction AND P(best) >= 95% ...)
+
+$ abtest size --baseline 0.0104 --lift 0.10 --arms 5 --phi 1.67
+371,714 impressions per arm (1,858,570 total across 5 arms) to detect +10% on a 1.04% baseline ...
+```
+
+`--phi` applies the A/A variance inflation measured in this archive. Leave it at 1 if your own A/A tests show calibrated p-values.
+
+## Engineering and reproducibility
+
+This project follows a written engineering playbook (see [`CLAUDE.md`](CLAUDE.md)):
+
+| Practice | How it shows up here |
+|---|---|
+| **Single source of truth** | `abtest.readout.analyze` powers the CLI and the site data. The browser port (`docs/js/stats.js`) is checked against Python by `tests/test_js_parity.py`. |
+| **Fail loudly on contract violations** | Input files are verified against pinned SHA-256 and row counts. Unknown samples, malformed CLI arms, and tests without exactly one control all raise errors. |
+| **Provenance** | Every `reports/results/*.json` records git commit, dirty flag, Python and package versions, input checksums and seeds. The site footer shows the commit it was built from. |
+| **Reproduce before extending** | After the 1.1 refactor, all four results files were regenerated and compared field by field with 1.0: they are identical. |
+| **Tests beyond "it runs"** | 29 tests: statistics against statsmodels and known answers, data-contract fixtures (control selection, pooling, the exclusion window), CLI end to end, and JS↔Python parity. |
+| **Exploration vs confirmation** | Headline features are explored on one sample, pre-registered, and confirmed on a held-back sample. The archive's holdout sample is never touched. |
+| **Reviewable history** | CI on every PR (Python 3.11 and 3.13), issue and PR templates, a changelog, and SemVer. |
+
+## Skills demonstrated
+
+**Experimentation and statistics:** A/B/n test design, sample-ratio-mismatch checks, A/A calibration, two-proportion z-tests, Wilson intervals, Holm / Bonferroni / Benjamini–Hochberg, power and MDE, group-sequential (Pocock) boundaries, Beta-Binomial Bayesian inference (P(best), expected loss), random-effects meta-analysis, empirical-Bayes shrinkage, type M/S errors, fixed-effects regression with cluster-robust SEs, and pre-registered confirmation.
+
+**Engineering:** Python packaging and CLI design, pytest (unit, contract, parity), GitHub Actions CI, ruff, data integrity and provenance, reproducible notebooks, and a dependency-free interactive web app (vanilla JS + SVG) deployed on GitHub Pages.
+
+**Communication:** Decision memos with practical significance (clicks per million), accessible figures (colorblind-validated palette), and clearly stated limitations.
+
 ## Reproduce
 
 ```bash
-git clone <this-repo> && cd headline-ab-testing
+git clone https://github.com/omoissy/headline-ab-testing && cd headline-ab-testing
 python -m venv .venv && source .venv/bin/activate
-pip install -r requirements.txt
-python scripts/download_data.py      # ~80 MB from OSF (exploratory + confirmatory samples)
-pytest -q                            # 13 unit tests
-jupyter nbconvert --to notebook --execute --inplace notebooks/0*.ipynb
+pip install -e ".[dev]"              # or: pip install -r requirements.txt && pip install -e .  (exact pins)
+python scripts/download_data.py      # ~80 MB from OSF, checksum-verified
+pytest -q                            # 29 tests
+make notebooks site                  # re-execute notebooks 01–04, rebuild docs/data
+make serve                           # open http://localhost:8000
 ```
-Or simply `make all`. Every number in this README is written to `reports/results/` by the notebooks.
+Or run `make all`. Every number in this README is written to `reports/results/` by the notebooks.
 
 ## Data, limitations and ethics
 
@@ -188,4 +244,4 @@ Or simply `make all`. Every number in this README is written to `reports/results
 - Pocock, S. J. (1977). Group sequential methods in the design and analysis of clinical trials. *Biometrika.*
 - Robertson, C. E., et al. (2023). Negativity drives online news consumption. *Nature Human Behaviour.*
 
-Code is released under the MIT License.
+Code is released under the MIT License. See [`CHANGELOG.md`](CHANGELOG.md) for the version history.
