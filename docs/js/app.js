@@ -236,10 +236,12 @@ function runSim() {
 // ---------- features ----------
 function renderFeatures() {
   const f = [...SUMMARY.features].sort((a, b) => b.odds_ratio - a.odds_ratio);
+  const len = f.find((x) => x.feature.startsWith("length"));
+  $("featTakeaway").textContent = `Real but weak: longer headlines average ${signed(len.odds_ratio - 1, 0)} CTR per 10 words, yet the longer headline wins only ${pct(len.win_rate, 0)} of head-to-head matchups, and the shorter one won ${pct(SUMMARY.decisive_short_share, 0)} of decisive duels. Rules shift the average; they don't replace testing.`;
   dotChart($("featChart"), f.map((x) => ({
     label: x.feature, v: x.odds_ratio - 1, lo: x.or_lo - 1, hi: x.or_hi - 1, hollow: !x.preregistered,
     color: x.replicated ? css("--s1") : css("--context"),
-    tip: `<b>${esc(x.feature)}</b><br>${signed(x.odds_ratio - 1, 1)} CTR within a test<br>95% CI ${signed(x.or_lo - 1, 1)} to ${signed(x.or_hi - 1, 1)}<br>${x.replicated ? "Pre-registered and replicated" : x.preregistered ? "Pre-registered, not replicated" : "Not pre-registered (hypothesis only)"}`,
+    tip: `<b>${esc(x.feature)}</b><br>${signed(x.odds_ratio - 1, 1)} CTR within a test<br>95% CI ${signed(x.or_lo - 1, 1)} to ${signed(x.or_hi - 1, 1)}<br>Wins ${pct(x.win_rate, 0)} of head-to-head matchups<br>${x.replicated ? "Pre-registered and replicated" : x.preregistered ? "Pre-registered, not replicated" : "Not pre-registered (hypothesis only)"}${x.stable_every_year ? " · stable every year" : ""}`,
   })), { xFmt: (v) => `${v > 0 ? "+" : ""}${Math.round(v * 100)}%`, xLabel: "Effect on CTR within a test (odds ratio − 1)", ref: 0, labelWidth: 170 });
 }
 

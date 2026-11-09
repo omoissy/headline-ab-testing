@@ -58,6 +58,8 @@ def main():
     sims = json.loads((RESULTS / "03_simulations.json").read_text())
     features = json.loads((RESULTS / "04_headline_features.json").read_text())
     case = json.loads((RESULTS / "01_case_study.json").read_text())
+    robust = json.loads((RESULTS / "05_robustness.json").read_text())
+    win = {w["feature"]: w["win_rate"] for w in robust["win_rates"]["confirmatory"]}
 
     tests = build_tests(portfolio)
     disc = {(d["p-values"], d["rule"]): d["challenger better"] for d in portfolio["discoveries"]}
@@ -78,8 +80,10 @@ def main():
         "median_n_arm": portfolio["median_n_arm"],
         "peek_fpr": sims["peek_fpr"],
         "case_lift": case["lift_median"],
-        "features": [{k: f[k] for k in ("feature", "odds_ratio", "or_lo", "or_hi", "replicated", "preregistered")}
+        "features": [{**{k: f[k] for k in ("feature", "odds_ratio", "or_lo", "or_hi", "replicated", "preregistered")},
+                      "win_rate": win[f["feature"]], "stable_every_year": robust["stable_every_year"][f["feature"]]}
                      for f in features["confirm"]],
+        "decisive_short_share": robust["decisive_short_share"],
         "provenance": provenance.collect(samples=("exploratory",), seeds={"posterior_draws": 0}),
     }
     OUT.mkdir(parents=True, exist_ok=True)
