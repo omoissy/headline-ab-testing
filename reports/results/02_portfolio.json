@@ -1,0 +1,104 @@
+{
+  "srm_fail_inside": 0.7,
+  "srm_fail_outside": 0.004708344232278315,
+  "n_aa": 2418,
+  "fp_aa": 0.12779156327543426,
+  "sig_hl_naive": 0.2867207841935978,
+  "phi": 1.6692774860885518,
+  "fp_aa_cal": 0.053763440860215055,
+  "sig_hl_cal": 0.1739929545106448,
+  "n_headline_tests": 1825,
+  "n_headline_comparisons": 6529,
+  "discoveries": [
+    {
+      "p-values": "Naive",
+      "rule": "No correction",
+      "significant": 1872,
+      "challenger better": 690,
+      "challenger worse": 1182
+    },
+    {
+      "p-values": "Naive",
+      "rule": "Holm (within test)",
+      "significant": 1293,
+      "challenger better": 481,
+      "challenger worse": 812
+    },
+    {
+      "p-values": "Naive",
+      "rule": "BH (within test)",
+      "significant": 1429,
+      "challenger better": 519,
+      "challenger worse": 910
+    },
+    {
+      "p-values": "Naive",
+      "rule": "BH (portfolio-wide)",
+      "significant": 1032,
+      "challenger better": 378,
+      "challenger worse": 654
+    },
+    {
+      "p-values": "A/A-calibrated",
+      "rule": "No correction",
+      "significant": 1136,
+      "challenger better": 416,
+      "challenger worse": 720
+    },
+    {
+      "p-values": "A/A-calibrated",
+      "rule": "Holm (within test)",
+      "significant": 686,
+      "challenger better": 230,
+      "challenger worse": 456
+    },
+    {
+      "p-values": "A/A-calibrated",
+      "rule": "BH (within test)",
+      "significant": 753,
+      "challenger better": 255,
+      "challenger worse": 498
+    },
+    {
+      "p-values": "A/A-calibrated",
+      "rule": "BH (portfolio-wide)",
+      "significant": 268,
+      "challenger better": 83,
+      "challenger worse": 185
+    }
+  ],
+  "mu_hl": -0.07762495229805796,
+  "tau_hl": 0.36042668083749024,
+  "mu_aa": -0.0050197796979759195,
+  "tau_aa": 0.1593808414858177,
+  "tau_net": 0.32327254697360663,
+  "lift_1sd": 0.3816418619029028,
+  "median_n_arm": 3222.75,
+  "median_ctr_c": 0.010382897529898849,
+  "median_mde": 0.773227733876191,
+  "share_powered_1sd": 0.05263157894736842,
+  "median_power_10": 0.0696316975283099,
+  "median_power_1sd": 0.31613800961243266,
+  "best_obs_median": 0.20081156479837683,
+  "best_eb_median": 0.06737548791464391,
+  "winners_obs_median": 1.4870824738289805,
+  "winners_eb_median": 0.49147768564550987,
+  "n_winners_holm_cal": 166,
+  "ship_rules": {
+    "tests shipping a challenger": {
+      "Naive Holm": 330,
+      "Calibrated Holm": 166,
+      "Bayesian, flat prior": 552,
+      "Bayesian, hierarchical": 153
+    },
+    "share of tests": {
+      "Naive Holm": 0.18082191780821918,
+      "Calibrated Holm": 0.09095890410958904,
+      "Bayesian, flat prior": 0.30246575342465754,
+      "Bayesian, hierarchical": 0.08383561643835616
+    }
+  },
+  "leader_sig_naive": 0.13678985107556535,
+  "leader_sig_cal": 0.07115278543849972,
+  "leader_is_max": 0.8814120242691671
+}

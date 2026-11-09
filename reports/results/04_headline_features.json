@@ -1,0 +1,182 @@
+{
+  "preregistered": [
+    "number",
+    "question",
+    "exclamation",
+    "this / these / here's",
+    "negative word",
+    "length (+10 words)"
+  ],
+  "explore": [
+    {
+      "feature": "number",
+      "odds_ratio": 1.0578681328400306,
+      "or_lo": 1.025731369907057,
+      "or_hi": 1.0910117593262794,
+      "p": 0.000351484268783001,
+      "share of headlines": 0.1711754847977017,
+      "q_bh": 0.0005623748300528016,
+      "carry_forward": true
+    },
+    {
+      "feature": "question",
+      "odds_ratio": 0.9164711493015699,
+      "or_lo": 0.8921657724005985,
+      "or_hi": 0.9414386804395377,
+      "p": 2.0130589182061382e-10,
+      "share of headlines": 0.17093607852525736,
+      "q_bh": 8.052235672824553e-10,
+      "carry_forward": true
+    },
+    {
+      "feature": "exclamation",
+      "odds_ratio": 0.8728729087669337,
+      "or_lo": 0.8148450603690242,
+      "or_hi": 0.9350331147791433,
+      "p": 0.0001071465946218949,
+      "share of headlines": 0.019990423749102225,
+      "q_bh": 0.00028572425232505305,
+      "carry_forward": true
+    },
+    {
+      "feature": "you / your",
+      "odds_ratio": 0.9954318182575081,
+      "or_lo": 0.9685920745746733,
+      "or_hi": 1.02301529282548,
+      "p": 0.7426700912784805,
+      "share of headlines": 0.2380895379458942,
+      "q_bh": 0.7426700912784805,
+      "carry_forward": false
+    },
+    {
+      "feature": "I / me / my",
+      "odds_ratio": 1.0245694972628656,
+      "or_lo": 0.9908980908228738,
+      "or_hi": 1.0593850815170516,
+      "p": 0.15454409987021195,
+      "share of headlines": 0.0915728992099593,
+      "q_bh": 0.17662182842309937,
+      "carry_forward": false
+    },
+    {
+      "feature": "this / these / here's",
+      "odds_ratio": 1.038886514955733,
+      "or_lo": 1.0146718959784222,
+      "or_hi": 1.06367900326651,
+      "p": 0.0015222172344826815,
+      "share of headlines": 0.28369643284654056,
+      "q_bh": 0.002029622979310242,
+      "carry_forward": true
+    },
+    {
+      "feature": "negative word",
+      "odds_ratio": 1.0679079758271186,
+      "or_lo": 1.0318201560207079,
+      "or_hi": 1.1052579639782558,
+      "p": 0.00017976468174336302,
+      "share of headlines": 0.09372755566195834,
+      "q_bh": 0.00035952936348672605,
+      "carry_forward": true
+    },
+    {
+      "feature": "length (+10 words)",
+      "odds_ratio": 1.1233140985606371,
+      "or_lo": 1.085264887981909,
+      "or_hi": 1.1626973082779137,
+      "p": 3.742378134376897e-11,
+      "share of headlines": NaN,
+      "q_bh": 2.9939025075015176e-10,
+      "carry_forward": true
+    }
+  ],
+  "confirm": [
+    {
+      "feature": "number",
+      "odds_ratio": 1.0626341028164028,
+      "or_lo": 1.0473785656064671,
+      "or_hi": 1.0781118437482842,
+      "p": 1.8079363279183686e-16,
+      "share of headlines": 0.1829780920824885,
+      "preregistered": true,
+      "p_holm": 5.423808983755106e-16,
+      "replicated": true
+    },
+    {
+      "feature": "question",
+      "odds_ratio": 0.917253842683383,
+      "or_lo": 0.9056386161065252,
+      "or_hi": 0.9290180398165226,
+      "p": 2.8844909076947694e-40,
+      "share of headlines": 0.1700212650215123,
+      "preregistered": true,
+      "p_holm": 1.7306945446168616e-39,
+      "replicated": true
+    },
+    {
+      "feature": "exclamation",
+      "odds_ratio": 0.9400303041999314,
+      "or_lo": 0.9103742776262176,
+      "or_hi": 0.9706523948790965,
+      "p": 0.00015609221759191067,
+      "share of headlines": 0.02096830028188517,
+      "preregistered": true,
+      "p_holm": 0.00015609221759191067,
+      "replicated": true
+    },
+    {
+      "feature": "you / your",
+      "odds_ratio": 1.0076929725750539,
+      "or_lo": 0.9962003054613037,
+      "or_hi": 1.0193182248693782,
+      "p": 0.1903746341041268,
+      "share of headlines": 0.24459720092972653,
+      "preregistered": false,
+      "p_holm": NaN,
+      "replicated": false
+    },
+    {
+      "feature": "I / me / my",
+      "odds_ratio": 1.0355619939571692,
+      "or_lo": 1.0194588993146831,
+      "or_hi": 1.051919448689345,
+      "p": 1.2418573911623371e-05,
+      "share of headlines": 0.09710202264972059,
+      "preregistered": false,
+      "p_holm": NaN,
+      "replicated": false
+    },
+    {
+      "feature": "this / these / here's",
+      "odds_ratio": 1.0515164740626395,
+      "or_lo": 1.0401969006906058,
+      "or_hi": 1.062959228672033,
+      "p": 9.321643013119979e-20,
+      "share of headlines": 0.28697888333910293,
+      "preregistered": true,
+      "p_holm": 3.7286572052479917e-19,
+      "replicated": true
+    },
+    {
+      "feature": "negative word",
+      "odds_ratio": 1.0665355731799537,
+      "or_lo": 1.0497210784428004,
+      "or_hi": 1.0836194034949782,
+      "p": 1.944570253920623e-15,
+      "share of headlines": 0.0994263389545522,
+      "preregistered": true,
+      "p_holm": 3.889140507841246e-15,
+      "replicated": true
+    },
+    {
+      "feature": "length (+10 words)",
+      "odds_ratio": 1.0978268294756142,
+      "or_lo": 1.07952501806046,
+      "or_hi": 1.1164389220750595,
+      "p": 1.4172225215522456e-27,
+      "share of headlines": NaN,
+      "preregistered": true,
+      "p_holm": 7.086112607761228e-27,
+      "replicated": true
+    }
+  ]
+}

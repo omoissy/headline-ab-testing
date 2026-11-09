@@ -1,0 +1,53 @@
+{
+  "srm_p": 0.8040903396064492,
+  "omnibus_p": 4.145958085111174e-15,
+  "significant_by_method": {
+    "Unadjusted": 3,
+    "Bonferroni": 1,
+    "Holm": 1,
+    "Benjamini-Hochberg": 3
+  },
+  "mde_raw": 0.7121062030059655,
+  "mde_bonf": 0.8703558888684573,
+  "n_arm": 7152,
+  "baseline_ctr": 0.005722260990928122,
+  "p_best": 0.9999925,
+  "lift_median": 1.2253591708250526,
+  "lift_cri": [
+    0.5579339354517358,
+    2.231870443386259
+  ],
+  "expected_loss_best_pp": 2.72609867994458e-07,
+  "prior_sensitivity": [
+    {
+      "prior": "Flat Beta(1,1)",
+      "P(B best)": 0.99999,
+      "P(B > A)": 0.99999,
+      "lift median": 1.223763828679679,
+      "lift 2.5%": 0.5554744597115979,
+      "lift 97.5%": 2.2370306472814034
+    },
+    {
+      "prior": "Portfolio (moments)",
+      "P(B best)": 0.99999,
+      "P(B > A)": 0.99999,
+      "lift median": 1.2018206341884692,
+      "lift 2.5%": 0.5430329840920504,
+      "lift 97.5%": 2.1939449485509814
+    },
+    {
+      "prior": "Skeptical (20,000 pseudo-impr.)",
+      "P(B best)": 0.961275,
+      "P(B > A)": 0.97903,
+      "lift median": 0.17370671416200956,
+      "lift 2.5%": 0.005962324169941794,
+      "lift 97.5%": 0.37016461277828044
+    }
+  ],
+  "abs_gain_pp": 0.7119726725431452,
+  "clicks_per_million": 7119.726725431453,
+  "decision_ship": true,
+  "best_label": "B",
+  "best_headline": "They're Just A Bunch Of Little Doodles In A Kid's Notebook. So Why Is It So Upsetting?",
+  "control_headline": "These Stats Are Heartbreaking Because This Is So Real ... And Happening In Your Neighborhood."
+}

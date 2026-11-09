@@ -1,0 +1,61 @@
+{
+  "p0": 0.0104,
+  "n_arm": 3200,
+  "tau": 0.32327254697360663,
+  "peek_looks": 32,
+  "pocock_alpha": 0.006086941692103994,
+  "peek_fpr": {
+    "z-test, stop when p < 0.05": 0.2748,
+    "Bayesian, stop when P(B>A) > 95%": 0.41755,
+    "Pocock boundary (corrected)": 0.0391
+  },
+  "fwer_6_arms": {
+    "No correction": 0.18115,
+    "Bonferroni": 0.0397,
+    "Holm": 0.0397,
+    "Benjamini-Hochberg": 0.043325
+  },
+  "power_6_arms": {
+    "No correction": 0.8001,
+    "Bonferroni": 0.58815,
+    "Holm": 0.5886,
+    "Benjamini-Hochberg": 0.592075
+  },
+  "exaggeration_typical": 1.6078522267337862,
+  "type_s_typical": 0.023632854385588677,
+  "share_sig_typical": 0.23315,
+  "plan": [
+    {
+      "target lift": "+5%",
+      "per arm (\u03b1=0.05)": 612166,
+      "per arm (Bonferroni, 4 challengers)": 869721,
+      "per arm (+ A/A calibration)": 1451806,
+      "total, 5 arms": 7259030,
+      "x typical test": 453.68927639950664
+    },
+    {
+      "target lift": "+10%",
+      "per arm (\u03b1=0.05)": 156668,
+      "per arm (Bonferroni, 4 challengers)": 222583,
+      "per arm (+ A/A calibration)": 371553,
+      "total, 5 arms": 1857765,
+      "x typical test": 116.11024708939003
+    },
+    {
+      "target lift": "+20%",
+      "per arm (\u03b1=0.05)": 40950,
+      "per arm (Bonferroni, 4 challengers)": 58178,
+      "per arm (+ A/A calibration)": 97116,
+      "total, 5 arms": 485580,
+      "x typical test": 30.348507995518677
+    },
+    {
+      "target lift": "+38%",
+      "per arm (\u03b1=0.05)": 12207,
+      "per arm (Bonferroni, 4 challengers)": 17343,
+      "per arm (+ A/A calibration)": 28951,
+      "total, 5 arms": 144755,
+      "x typical test": 9.046962325385548
+    }
+  ]
+}
