@@ -1,0 +1,493 @@
+{
+  "win_rates": {
+    "exploratory": [
+      {
+        "feature": "number",
+        "tests": 617,
+        "pairs": 3002,
+        "win_rate": 0.5626249167221852,
+        "ci_lo": 0.5386621241716198,
+        "ci_hi": 0.5879273431122113
+      },
+      {
+        "feature": "question",
+        "tests": 829,
+        "pairs": 3908,
+        "win_rate": 0.4250255885363357,
+        "ci_lo": 0.40250997521699045,
+        "ci_hi": 0.4473820325921641
+      },
+      {
+        "feature": "exclamation",
+        "tests": 141,
+        "pairs": 567,
+        "win_rate": 0.3950617283950617,
+        "ci_lo": 0.3379508819113973,
+        "ci_hi": 0.4514432002784869
+      },
+      {
+        "feature": "you / your",
+        "tests": 972,
+        "pairs": 4714,
+        "win_rate": 0.5068943572337717,
+        "ci_lo": 0.48490858826051025,
+        "ci_hi": 0.528127004169924
+      },
+      {
+        "feature": "I / me / my",
+        "tests": 501,
+        "pairs": 2287,
+        "win_rate": 0.5362920857017928,
+        "ci_lo": 0.5063316535285285,
+        "ci_hi": 0.5673647061929414
+      },
+      {
+        "feature": "this / these / here's",
+        "tests": 1026,
+        "pairs": 5131,
+        "win_rate": 0.5504774897680764,
+        "ci_lo": 0.5303408926233313,
+        "ci_hi": 0.5706442499555485
+      },
+      {
+        "feature": "negative word",
+        "tests": 484,
+        "pairs": 2192,
+        "win_rate": 0.5556569343065694,
+        "ci_lo": 0.5222768389520406,
+        "ci_hi": 0.5880494716796562
+      },
+      {
+        "feature": "length (+10 words)",
+        "tests": 1533,
+        "pairs": 7478,
+        "win_rate": 0.5483418026210216,
+        "ci_lo": 0.5316348579268915,
+        "ci_hi": 0.5651573994695038
+      }
+    ],
+    "confirmatory": [
+      {
+        "feature": "number",
+        "tests": 3096,
+        "pairs": 15152,
+        "win_rate": 0.547650475184794,
+        "ci_lo": 0.5361262325423329,
+        "ci_hi": 0.5604687743211583
+      },
+      {
+        "feature": "question",
+        "tests": 3955,
+        "pairs": 18589,
+        "win_rate": 0.42786056269837003,
+        "ci_lo": 0.4173852450321605,
+        "ci_hi": 0.4385136352312866
+      },
+      {
+        "feature": "exclamation",
+        "tests": 705,
+        "pairs": 2815,
+        "win_rate": 0.41989342806394314,
+        "ci_lo": 0.3939713079676315,
+        "ci_hi": 0.44680889030631615
+      },
+      {
+        "feature": "you / your",
+        "tests": 4651,
+        "pairs": 22544,
+        "win_rate": 0.5036816891412349,
+        "ci_lo": 0.49375734917036695,
+        "ci_hi": 0.5136987055951073
+      },
+      {
+        "feature": "I / me / my",
+        "tests": 2519,
+        "pairs": 11511,
+        "win_rate": 0.5581183216054209,
+        "ci_lo": 0.5440630619103767,
+        "ci_hi": 0.5712187108902286
+      },
+      {
+        "feature": "this / these / here's",
+        "tests": 5089,
+        "pairs": 25040,
+        "win_rate": 0.5556908945686901,
+        "ci_lo": 0.5465033312130801,
+        "ci_hi": 0.5651905876042016
+      },
+      {
+        "feature": "negative word",
+        "tests": 2316,
+        "pairs": 10689,
+        "win_rate": 0.5644587894096735,
+        "ci_lo": 0.5510058556343456,
+        "ci_hi": 0.578328176414173
+      },
+      {
+        "feature": "length (+10 words)",
+        "tests": 7395,
+        "pairs": 35890,
+        "win_rate": 0.5485511284480357,
+        "ci_lo": 0.5411865660937945,
+        "ci_hi": 0.5553969802872075
+      }
+    ]
+  },
+  "length_threshold_sweep": [
+    {
+      "threshold_words": 10,
+      "share_long": 0.9509668166757331,
+      "odds_ratio": 1.0959070608948003,
+      "or_lo": 1.0739177215593134,
+      "or_hi": 1.1183466498487673,
+      "p": 8.308775085575127e-19
+    },
+    {
+      "threshold_words": 11,
+      "share_long": 0.9136788487216261,
+      "odds_ratio": 1.0795119495447392,
+      "or_lo": 1.0626235139907834,
+      "or_hi": 1.0966687955485905,
+      "p": 1.907088800516326e-21
+    },
+    {
+      "threshold_words": 12,
+      "share_long": 0.8620988081697245,
+      "odds_ratio": 1.0593385873265226,
+      "or_lo": 1.0457124885777362,
+      "or_hi": 1.073142240201457,
+      "p": 2.6161753656290426e-18
+    },
+    {
+      "threshold_words": 13,
+      "share_long": 0.7908362593343554,
+      "odds_ratio": 1.0402985210468931,
+      "or_lo": 1.0283915834308732,
+      "or_hi": 1.052343319732253,
+      "p": 1.7376704816832676e-11
+    },
+    {
+      "threshold_words": 14,
+      "share_long": 0.7042925671331783,
+      "odds_ratio": 1.04288263789104,
+      "or_lo": 1.0323172426860265,
+      "or_hi": 1.0535561661110049,
+      "p": 6.369798472585829e-16
+    },
+    {
+      "threshold_words": 15,
+      "share_long": 0.5979180060333317,
+      "odds_ratio": 1.0414847297725793,
+      "or_lo": 1.031484791454913,
+      "or_hi": 1.0515816145185264,
+      "p": 1.48905588601718e-16
+    },
+    {
+      "threshold_words": 16,
+      "share_long": 0.47603976064487413,
+      "odds_ratio": 1.0368651141703296,
+      "or_lo": 1.0270674518716452,
+      "or_hi": 1.0467562408138766,
+      "p": 7.814495443872949e-14
+    },
+    {
+      "threshold_words": 17,
+      "share_long": 0.34439444142228376,
+      "odds_ratio": 1.0319121363941453,
+      "or_lo": 1.0217725996324956,
+      "or_hi": 1.0421522926143494,
+      "p": 4.513460454240155e-10
+    },
+    {
+      "threshold_words": 18,
+      "share_long": 0.2211314969586074,
+      "odds_ratio": 1.0337352767909052,
+      "or_lo": 1.0227000502499033,
+      "or_hi": 1.0448895765878257,
+      "p": 1.368936051050933e-09
+    },
+    {
+      "threshold_words": 19,
+      "share_long": 0.11933138816082291,
+      "odds_ratio": 1.0149598658313432,
+      "or_lo": 1.0017826951747457,
+      "or_hi": 1.0283103653219776,
+      "p": 0.025940672054912094
+    },
+    {
+      "threshold_words": 20,
+      "share_long": 0.05383017654913209,
+      "odds_ratio": 1.0203166709198133,
+      "or_lo": 1.0020364343168129,
+      "or_hi": 1.0389303954468228,
+      "p": 0.029219272289426716
+    }
+  ],
+  "by_year": {
+    "2013": [
+      {
+        "feature": "number",
+        "odds_ratio": 1.0874760836120358,
+        "or_lo": 1.030768821217787,
+        "or_hi": 1.1473030694030895,
+        "p": 0.002147403258816506,
+        "share of headlines": 0.1287349902261938,
+        "tests": 927
+      },
+      {
+        "feature": "question",
+        "odds_ratio": 0.916853830585494,
+        "or_lo": 0.880457575635353,
+        "or_hi": 0.9547546297760996,
+        "p": 2.665514703720527e-05,
+        "share of headlines": 0.2018989109187378,
+        "tests": 927
+      },
+      {
+        "feature": "exclamation",
+        "odds_ratio": 0.9418349642966474,
+        "or_lo": 0.862731640019075,
+        "or_hi": 1.0281912228836931,
+        "p": 0.1806239580506087,
+        "share of headlines": 0.039095224797542585,
+        "tests": 927
+      },
+      {
+        "feature": "you / your",
+        "odds_ratio": 1.006225894725653,
+        "or_lo": 0.9716318564000063,
+        "or_hi": 1.0420516212465698,
+        "p": 0.7280557344077971,
+        "share of headlines": 0.2753420832169785,
+        "tests": 927
+      },
+      {
+        "feature": "I / me / my",
+        "odds_ratio": 1.0036755182637793,
+        "or_lo": 0.9547066860562137,
+        "or_hi": 1.0551560606780455,
+        "p": 0.8856928974970221,
+        "share of headlines": 0.10695336498184864,
+        "tests": 927
+      },
+      {
+        "feature": "this / these / here's",
+        "odds_ratio": 1.0581564418653089,
+        "or_lo": 1.0242347832570753,
+        "or_hi": 1.093201552773292,
+        "p": 0.0006728737945037001,
+        "share of headlines": 0.3627478358000559,
+        "tests": 927
+      },
+      {
+        "feature": "negative word",
+        "odds_ratio": 1.0227773012478496,
+        "or_lo": 0.978001942096164,
+        "or_hi": 1.0696025876040411,
+        "p": 0.3240982353290055,
+        "share of headlines": 0.11616866796984082,
+        "tests": 927
+      },
+      {
+        "feature": "length (+10 words)",
+        "odds_ratio": 1.0813817526047913,
+        "or_lo": 1.0258064432746423,
+        "or_hi": 1.1399679759600876,
+        "p": 0.0036553419116408963,
+        "share of headlines": NaN,
+        "tests": 927
+      }
+    ],
+    "2014": [
+      {
+        "feature": "number",
+        "odds_ratio": 1.0616925827277406,
+        "or_lo": 1.0446250699645823,
+        "or_hi": 1.0790389515133094,
+        "p": 4.4910588096921973e-13,
+        "share of headlines": 0.18515361159382274,
+        "tests": 6510
+      },
+      {
+        "feature": "question",
+        "odds_ratio": 0.9185086138855563,
+        "or_lo": 0.9054859332379842,
+        "or_hi": 0.9317185864666897,
+        "p": 1.8710497719105923e-31,
+        "share of headlines": 0.17092363684055215,
+        "tests": 6510
+      },
+      {
+        "feature": "exclamation",
+        "odds_ratio": 0.9326973824895186,
+        "or_lo": 0.9006218445416164,
+        "or_hi": 0.9659152868377949,
+        "p": 9.531480606339281e-05,
+        "share of headlines": 0.020066231679727205,
+        "tests": 6510
+      },
+      {
+        "feature": "you / your",
+        "odds_ratio": 1.008115316095879,
+        "or_lo": 0.9952807768343799,
+        "or_hi": 1.0211153618173527,
+        "p": 0.21632171074950524,
+        "share of headlines": 0.2501065608708482,
+        "tests": 6510
+      },
+      {
+        "feature": "I / me / my",
+        "odds_ratio": 1.0335530190761393,
+        "or_lo": 1.0156077450121215,
+        "or_hi": 1.0518153770367837,
+        "p": 0.00022163042520402008,
+        "share of headlines": 0.09757696973671268,
+        "tests": 6510
+      },
+      {
+        "feature": "this / these / here's",
+        "odds_ratio": 1.0482647147185957,
+        "or_lo": 1.0354164856980683,
+        "or_hi": 1.0612723742593477,
+        "p": 6.821750102797166e-14,
+        "share of headlines": 0.2852880422308928,
+        "tests": 6510
+      },
+      {
+        "feature": "negative word",
+        "odds_ratio": 1.0817794949960609,
+        "or_lo": 1.0623218023376648,
+        "or_hi": 1.1015935785359727,
+        "p": 2.0958810718491124e-17,
+        "share of headlines": 0.09967539919341618,
+        "tests": 6510
+      },
+      {
+        "feature": "length (+10 words)",
+        "odds_ratio": 1.1030511984519011,
+        "or_lo": 1.0824318928039027,
+        "or_hi": 1.1240632824060748,
+        "p": 2.2591549764353365e-24,
+        "share of headlines": NaN,
+        "tests": 6510
+      }
+    ],
+    "2015": [
+      {
+        "feature": "number",
+        "odds_ratio": 1.0463572043793659,
+        "or_lo": 1.0075015782856724,
+        "or_hi": 1.0867113488989082,
+        "p": 0.018922523818194086,
+        "share of headlines": 0.20308079220370953,
+        "tests": 1358
+      },
+      {
+        "feature": "question",
+        "odds_ratio": 0.9015717042085197,
+        "or_lo": 0.8699776493989893,
+        "or_hi": 0.9343131267693909,
+        "p": 1.247849875268649e-08,
+        "share of headlines": 0.14775227915749764,
+        "tests": 1358
+      },
+      {
+        "feature": "exclamation",
+        "odds_ratio": 1.0110430813394473,
+        "or_lo": 0.9062953757140559,
+        "or_hi": 1.1278973055765429,
+        "p": 0.8439777057354386,
+        "share of headlines": 0.015089594467148696,
+        "tests": 1358
+      },
+      {
+        "feature": "you / your",
+        "odds_ratio": 1.006203167290097,
+        "or_lo": 0.9706581992731824,
+        "or_hi": 1.0430497724355803,
+        "p": 0.7361113818027312,
+        "share of headlines": 0.200880226343917,
+        "tests": 1358
+      },
+      {
+        "feature": "I / me / my",
+        "odds_ratio": 1.1031534013390039,
+        "or_lo": 1.0554057192708857,
+        "or_hi": 1.15306123954542,
+        "p": 1.3700528573748177e-05,
+        "share of headlines": 0.08928010059729645,
+        "tests": 1358
+      },
+      {
+        "feature": "this / these / here's",
+        "odds_ratio": 1.073585942168535,
+        "or_lo": 1.0429854834896861,
+        "or_hi": 1.105084196728706,
+        "p": 1.4899350809483888e-06,
+        "share of headlines": 0.2524363407733417,
+        "tests": 1358
+      },
+      {
+        "feature": "negative word",
+        "odds_ratio": 1.0060775663755634,
+        "or_lo": 0.9633712311294461,
+        "or_hi": 1.050677077389464,
+        "p": 0.7842469137904506,
+        "share of headlines": 0.08880855077019804,
+        "tests": 1358
+      },
+      {
+        "feature": "length (+10 words)",
+        "odds_ratio": 1.0784888213863408,
+        "or_lo": 1.0253176234251886,
+        "or_hi": 1.134417385677723,
+        "p": 0.003398166391698555,
+        "share of headlines": NaN,
+        "tests": 1358
+      }
+    ]
+  },
+  "stable_every_year": {
+    "number": true,
+    "question": true,
+    "exclamation": false,
+    "you / your": false,
+    "I / me / my": false,
+    "this / these / here's": true,
+    "negative word": false,
+    "length (+10 words)": true
+  },
+  "duel_tests": 5100,
+  "duel_longer_wins": 0.5694117647058824,
+  "decisive": 527,
+  "decisive_short_wins": 172,
+  "decisive_short_share": 0.32637571157495254,
+  "provenance": {
+    "generated_utc": "2026-11-09T21:25:59+00:00",
+    "git_commit": "c07837417d3154bd150e7dac3b79485254e989d4",
+    "git_branch": "feature/robustness-checks",
+    "git_dirty": true,
+    "python": "3.13.11",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "packages": {
+      "numpy": "2.5.4",
+      "pandas": "3.1.1",
+      "scipy": "1.18.1",
+      "statsmodels": "0.15.0",
+      "matplotlib": "3.11.2"
+    },
+    "inputs": {
+      "exploratory": {
+        "file": "data/raw/upworthy-exploratory.csv",
+        "sha256": "8368313b060f4015a0c6fb34e6d788163cee29554144aba9390b14922eb9d8ce"
+      },
+      "confirmatory": {
+        "file": "data/raw/upworthy-confirmatory.csv",
+        "sha256": "b2a88288c88f2b67d40413c9bdbebe79a1c0b5d9a9354180549f59f3bfff685f"
+      }
+    },
+    "seeds": {
+      "win_rate_bootstrap": 0
+    }
+  }
+}
