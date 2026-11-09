@@ -26,7 +26,9 @@
       "or_lo": 1.0473785656064671,
       "or_hi": 1.0781118437482842,
       "replicated": true,
-      "preregistered": true
+      "preregistered": true,
+      "win_rate": 0.547650475184794,
+      "stable_every_year": true
     },
     {
       "feature": "question",
@@ -34,7 +36,9 @@
       "or_lo": 0.9056386161065252,
       "or_hi": 0.9290180398165226,
       "replicated": true,
-      "preregistered": true
+      "preregistered": true,
+      "win_rate": 0.42786056269837003,
+      "stable_every_year": true
     },
     {
       "feature": "exclamation",
@@ -42,7 +46,9 @@
       "or_lo": 0.9103742776262176,
       "or_hi": 0.9706523948790965,
       "replicated": true,
-      "preregistered": true
+      "preregistered": true,
+      "win_rate": 0.41989342806394314,
+      "stable_every_year": false
     },
     {
       "feature": "you / your",
@@ -50,7 +56,9 @@
       "or_lo": 0.9962003054613037,
       "or_hi": 1.0193182248693782,
       "replicated": false,
-      "preregistered": false
+      "preregistered": false,
+      "win_rate": 0.5036816891412349,
+      "stable_every_year": false
     },
     {
       "feature": "I / me / my",
@@ -58,7 +66,9 @@
       "or_lo": 1.0194588993146831,
       "or_hi": 1.051919448689345,
       "replicated": false,
-      "preregistered": false
+      "preregistered": false,
+      "win_rate": 0.5581183216054209,
+      "stable_every_year": false
     },
     {
       "feature": "this / these / here's",
@@ -66,7 +76,9 @@
       "or_lo": 1.0401969006906058,
       "or_hi": 1.062959228672033,
       "replicated": true,
-      "preregistered": true
+      "preregistered": true,
+      "win_rate": 0.5556908945686901,
+      "stable_every_year": true
     },
     {
       "feature": "negative word",
@@ -74,7 +86,9 @@
       "or_lo": 1.0497210784428004,
       "or_hi": 1.0836194034949782,
       "replicated": true,
-      "preregistered": true
+      "preregistered": true,
+      "win_rate": 0.5644587894096735,
+      "stable_every_year": false
     },
     {
       "feature": "length (+10 words)",
@@ -82,13 +96,16 @@
       "or_lo": 1.07952501806046,
       "or_hi": 1.1164389220750595,
       "replicated": true,
-      "preregistered": true
+      "preregistered": true,
+      "win_rate": 0.5485511284480357,
+      "stable_every_year": true
     }
   ],
+  "decisive_short_share": 0.32637571157495254,
   "provenance": {
-    "generated_utc": "2026-11-09T21:08:43+00:00",
-    "git_commit": "ec98e15e996eb268ff9ef6fceae6f7d6617b070a",
-    "git_branch": "feature/recruiter-ready-polish",
+    "generated_utc": "2026-11-09T21:27:52+00:00",
+    "git_commit": "70775dcc04bb5f095f74680afa536188cdeb1729",
+    "git_branch": "feature/robustness-checks",
     "git_dirty": false,
     "python": "3.13.11",
     "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",

@@ -180,9 +180,9 @@
     }
   ],
   "provenance": {
-    "generated_utc": "2026-11-09T21:06:12+00:00",
-    "git_commit": "3a02ced76ebb40da629f789d117a1461d891fb9d",
-    "git_branch": "feature/recruiter-ready-polish",
+    "generated_utc": "2026-11-09T21:24:04+00:00",
+    "git_commit": "c07837417d3154bd150e7dac3b79485254e989d4",
+    "git_branch": "feature/robustness-checks",
     "git_dirty": true,
     "python": "3.13.11",
     "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",

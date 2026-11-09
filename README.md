@@ -3,7 +3,7 @@
 [![CI](https://github.com/omoissy/headline-ab-testing/actions/workflows/ci.yml/badge.svg)](https://github.com/omoissy/headline-ab-testing/actions/workflows/ci.yml)
 [![Live demo](https://img.shields.io/badge/live%20demo-open-2a78d6)](https://omoissy.github.io/headline-ab-testing/)
 ![Python](https://img.shields.io/badge/python-3.11%20%7C%203.13-blue)
-![Tests](https://img.shields.io/badge/tests-29%20passing-1baf7a)
+![Tests](https://img.shields.io/badge/tests-33%20passing-1baf7a)
 [![License: MIT](https://img.shields.io/badge/license-MIT-lightgrey)](LICENSE)
 
 **Which headline should we ship, how sure are we, and how big is the effect really?**
@@ -30,7 +30,7 @@ This project studies those questions on *real* experiments from the [Upworthy Re
 | 6 | **Winner's curse:** announced winning lifts (median +149%) shrink to +49% under empirical Bayes. | Random-effects meta-analysis + normal-normal shrinkage |
 | 7 | **"Bayesian" does not mean "safe".** A flat-prior P(B > A) > 95% rule would ship a challenger in 30% of tests. A hierarchical prior ships in 8%, close to calibrated Holm (9%). | Decision-rule comparison across 1,825 tests |
 | 8 | **Peeking is costly under both paradigms.** Checking every 200 impressions gives a 27% false-positive rate for the z-test and 42% for a Bayesian 95% rule. A Pocock boundary keeps it at 4%. | 40,000 simulated A/A tests |
-| 9 | **Headline-writing habits that replicated on held-back data:** numbers (+6%), "this/these/here's" (+5%), negative words (+7%), longer headlines (+10% per 10 words); questions (−8%) and exclamation marks (−6%) hurt. | Explored on 1,825 tests, pre-registered, confirmed on 8,794 new tests |
+| 9 | **Headline-writing habits replicate, but they are weak:** longer headlines (+10% per 10 words), numbers (+6%) and "this/these" (+5%) help, and questions (−8%) hurt. Yet the longer headline wins only **55%** of head-to-head matchups, and the *shorter* one won a third of decisive duels. | Explored on 1,825 tests, pre-registered, confirmed on 8,794 new tests; robustness in notebook 05 |
 
 ---
 
@@ -42,6 +42,7 @@ This project studies those questions on *real* experiments from the [Upworthy Re
 | [`02_portfolio_meta_analysis`](notebooks/02_portfolio_meta_analysis.ipynb) | What do 1,825 tests say about the process? | SRM audit, A/A calibration, within-test vs portfolio-wide correction, DerSimonian–Laird random effects, empirical-Bayes shrinkage, frequentist vs Bayesian decision rules |
 | [`03_simulations`](notebooks/03_simulations.ipynb) | Why does it go wrong? | Monte Carlo: peeking (incl. Bayesian stopping), group-sequential (Pocock) boundaries, FWER/power vs number of arms, type M & type S errors, sample-size planning |
 | [`04_headline_features`](notebooks/04_headline_features.ipynb) | What makes a headline win? | Within-test fixed-effects WLS on log-odds, cluster-robust SEs, explore → pre-register → confirm on held-back data |
+| [`05_robustness`](notebooks/05_robustness.ipynb) | Are those rules strong enough to decide with? | Head-to-head win rates (cluster bootstrap), threshold sensitivity, stability by year, failure cases |
 
 ```
 headline-ab-testing/
@@ -53,15 +54,16 @@ headline-ab-testing/
 │   ├── meta.py            # log odds ratios, random-effects pooling, EB shrinkage
 │   ├── simulate.py        # peeking, multiple arms, winner's curse simulations
 │   ├── readout.py         # one readout + decision rule shared by CLI and site
+│   ├── features.py        # headline features, within-test model, head-to-head win rates
 │   ├── provenance.py      # git SHA, package versions, input hashes for every result
 │   ├── cli.py             # `abtest analyze | size | mde`
 │   └── plotting.py        # shared, colorblind-validated figure style
-├── notebooks/             # executed analysis notebooks (01–04)
+├── notebooks/             # executed analysis notebooks (01–05)
 ├── docs/                  # interactive site (GitHub Pages): index.html, js/stats.js, js/app.js, data/
 ├── reports/figures/       # every figure in this README
 ├── reports/results/       # JSON/CSV behind every number quoted here, each with provenance
 ├── scripts/               # download_data.py (verified), build_site_data.py
-├── tests/                 # 29 tests: unit, data contracts, CLI, JS↔Python parity
+├── tests/                 # 33 tests: unit, data contracts, CLI, features, JS↔Python parity
 ├── .github/               # CI workflow, issue + PR templates
 └── CLAUDE.md              # engineering rules for AI-assisted development on this repo
 ```
@@ -160,6 +162,18 @@ Eight features were tested on the exploratory sample with BH correction. The six
 
 > These are within-test comparisons, so they hold the story, image and audience fixed. They are still observational with respect to the features: headline writers did not randomize *which* features to use.
 
+### Robustness: real, but too weak to pick a winner
+
+![Win rates](reports/figures/15_feature_win_rates.png)
+
+- **Head-to-head:** within the same test, the longer headline wins only **55%** of matchups (95% CI 54.1–55.5%). No feature wins more than 56%.
+- **Failure cases:** of 527 decisive longest-vs-shortest duels (p < 0.001), the **shorter** headline won 172 (33%).
+- **Not a threshold artifact:** "long" beats "short" at every cut-off from 10 to 20 words, and most of the gain comes from avoiding very short headlines ([figure](reports/figures/16_length_threshold_sensitivity.png)).
+- **Over time:** length, questions, numbers and "this/these" point the same way in 2013, 2014 and 2015. Negative words and exclamation marks do not ([figure](reports/figures/17_features_by_year.png)).
+- **Not checked:** topic, because the archive has no topic labels.
+
+**Takeaway:** headline rules shift the average a little, but they don't replace testing each headline.
+
 ---
 
 ## Recommendations for a headline-testing program
@@ -200,7 +214,7 @@ This project follows a written engineering playbook (see [`CLAUDE.md`](CLAUDE.md
 | **Fail loudly on contract violations** | Input files are verified against pinned SHA-256 and row counts. Unknown samples, malformed CLI arms, and tests without exactly one control all raise errors. |
 | **Provenance** | Every `reports/results/*.json` records git commit, dirty flag, Python and package versions, input checksums and seeds. The site footer shows the commit it was built from. |
 | **Reproduce before extending** | After the 1.1 refactor, all four results files were regenerated and compared field by field with 1.0: they are identical. |
-| **Tests beyond "it runs"** | 29 tests: statistics against statsmodels and known answers, data-contract fixtures (control selection, pooling, the exclusion window), CLI end to end, and JS↔Python parity. |
+| **Tests beyond "it runs"** | 33 tests: statistics against statsmodels and known answers, data-contract fixtures (control selection, pooling, the exclusion window), CLI end to end, and JS↔Python parity. |
 | **Exploration vs confirmation** | Headline features are explored on one sample, pre-registered, and confirmed on a held-back sample. The archive's holdout sample is never touched. |
 | **Reviewable history** | CI on every PR (Python 3.11 and 3.13), issue and PR templates, a changelog, and SemVer. |
 
@@ -219,8 +233,8 @@ git clone https://github.com/omoissy/headline-ab-testing && cd headline-ab-testi
 python -m venv .venv && source .venv/bin/activate
 pip install -e ".[dev]"              # or: pip install -r requirements.txt && pip install -e .  (exact pins)
 python scripts/download_data.py      # ~80 MB from OSF, checksum-verified
-pytest -q                            # 29 tests
-make notebooks site                  # re-execute notebooks 01–04, rebuild docs/data
+pytest -q                            # 33 tests
+make notebooks site                  # re-execute notebooks 01–05, rebuild docs/data
 make serve                           # open http://localhost:8000
 ```
 Or run `make all`. Every number in this README is written to `reports/results/` by the notebooks.

@@ -2,6 +2,16 @@
 
 All notable changes to this project. Versions follow [SemVer](https://semver.org/).
 
+## [1.2.0] - 2026-11-09
+
+### Added
+- Notebook 05 (robustness): head-to-head win rates with cluster-bootstrap CIs, "long headline" threshold sweep (10–20 words), per-year stability, and failure cases (decisive duels the shorter headline won).
+- `abtest.features`: headline features, within-test model and win rates moved out of notebook 04 into the tested library (+4 tests).
+- Site: the features section shows head-to-head win rates and the robustness takeaway.
+
+### Changed
+- Notebook 04 imports `abtest.features`. Its results are identical to 1.1.0.
+
 ## [1.1.0] - 2026-11-09
 
 ### Added
