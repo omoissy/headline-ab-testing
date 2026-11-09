@@ -178,5 +178,31 @@
       "p_holm": 7.086112607761228e-27,
       "replicated": true
     }
-  ]
+  ],
+  "provenance": {
+    "generated_utc": "2026-11-09T21:06:12+00:00",
+    "git_commit": "3a02ced76ebb40da629f789d117a1461d891fb9d",
+    "git_branch": "feature/recruiter-ready-polish",
+    "git_dirty": true,
+    "python": "3.13.11",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "packages": {
+      "numpy": "2.5.4",
+      "pandas": "3.1.1",
+      "scipy": "1.18.1",
+      "statsmodels": "0.15.0",
+      "matplotlib": "3.11.2"
+    },
+    "inputs": {
+      "exploratory": {
+        "file": "data/raw/upworthy-exploratory.csv",
+        "sha256": "8368313b060f4015a0c6fb34e6d788163cee29554144aba9390b14922eb9d8ce"
+      },
+      "confirmatory": {
+        "file": "data/raw/upworthy-confirmatory.csv",
+        "sha256": "b2a88288c88f2b67d40413c9bdbebe79a1c0b5d9a9354180549f59f3bfff685f"
+      }
+    },
+    "seeds": {}
+  }
 }

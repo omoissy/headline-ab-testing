@@ -100,5 +100,27 @@
   },
   "leader_sig_naive": 0.13678985107556535,
   "leader_sig_cal": 0.07115278543849972,
-  "leader_is_max": 0.8814120242691671
+  "leader_is_max": 0.8814120242691671,
+  "provenance": {
+    "generated_utc": "2026-11-09T21:06:01+00:00",
+    "git_commit": "3a02ced76ebb40da629f789d117a1461d891fb9d",
+    "git_branch": "feature/recruiter-ready-polish",
+    "git_dirty": true,
+    "python": "3.13.11",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "packages": {
+      "numpy": "2.5.4",
+      "pandas": "3.1.1",
+      "scipy": "1.18.1",
+      "statsmodels": "0.15.0",
+      "matplotlib": "3.11.2"
+    },
+    "inputs": {
+      "exploratory": {
+        "file": "data/raw/upworthy-exploratory.csv",
+        "sha256": "8368313b060f4015a0c6fb34e6d788163cee29554144aba9390b14922eb9d8ce"
+      }
+    },
+    "seeds": {}
+  }
 }
